@@ -118,42 +118,47 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/common.scss';
+@import '../../styles/design-system.scss';
 
 .page {
   min-height: 100vh;
-  background: $color-bg;
+  background: $bg-base;
+  display: flex;
+  flex-direction: column;
 }
 
+/* ============================================
+   Header - 玻璃态导航
+   ============================================ */
+
 .header {
+  position: relative;
   display: flex;
   align-items: center;
-  padding: 24rpx;
-  padding-top: calc(24rpx + constant(safe-area-inset-top));
-  padding-top: calc(24rpx + env(safe-area-inset-top));
-  background: rgba($color-bg-secondary, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1rpx solid $color-border;
+  padding: $space-6;
+  padding-top: calc(#{$space-6} + constant(safe-area-inset-top));
+  padding-top: calc(#{$space-6} + env(safe-area-inset-top));
 }
 
 .back {
-  width: 64rpx;
-  height: 64rpx;
+  position: relative;
+  width: 72rpx;
+  height: 72rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  transition: all $transition-fast;
+  border-radius: $radius-full;
+  transition: all $duration-fast $ease-out;
   
   &:active {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(0.95);
   }
 }
 
 .back-icon {
-  width: 28rpx;
-  height: 28rpx;
+  width: 32rpx;
+  height: 32rpx;
   background-image: $icon-back;
   background-size: contain;
   background-repeat: no-repeat;
@@ -161,121 +166,144 @@ export default {
 }
 
 .header-title {
-  color: $color-text;
+  position: relative;
   font-size: 36rpx;
   font-weight: 700;
-  margin-left: 8rpx;
+  color: $text-primary;
+  margin-left: $space-2;
 }
 
+/* ============================================
+   Logo Section
+   ============================================ */
+
 .content {
-  padding: 64rpx 32rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: $space-10 $space-6;
 }
 
 .logo-section {
   text-align: center;
-  margin-bottom: 72rpx;
+  margin-bottom: $space-16;
 }
 
 .logo-icon {
   width: 120rpx;
   height: 120rpx;
-  margin: 0 auto 24rpx;
+  margin: 0 auto $space-6;
   background: $gradient-primary;
-  border-radius: 28rpx;
+  border-radius: $radius-xl;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: $shadow-primary;
+  animation: float 3s ease-in-out infinite;
 }
 
 .app-name {
-  color: $color-primary;
+  display: block;
   font-size: 52rpx;
   font-weight: 700;
+  color: $brand-primary;
   letter-spacing: 2rpx;
-  display: block;
 }
 
 .app-desc {
-  color: $color-text-muted;
-  font-size: 26rpx;
-  margin-top: 16rpx;
   display: block;
+  margin-top: $space-4;
+  font-size: 26rpx;
+  color: $text-muted;
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8rpx); }
+}
+
+/* ============================================
+   Form - 玻璃态卡片
+   ============================================ */
+
 .form {
-  background: rgba($color-bg-secondary, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 24rpx;
-  padding: 40rpx 32rpx;
-  border: 1rpx solid $color-border;
-  box-shadow: $shadow-card;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-radius: $radius-2xl;
+  padding: $space-8 $space-6;
+  border: 1rpx solid rgba(255, 255, 255, 0.04);
 }
 
 .form-item {
-  margin-bottom: 36rpx;
+  margin-bottom: $space-6;
 }
 
 .label {
-  color: $color-text-secondary;
-  font-size: 28rpx;
-  font-weight: 500;
-  margin-bottom: 16rpx;
   display: block;
+  margin-bottom: $space-3;
+  font-size: 26rpx;
+  font-weight: 500;
+  color: $text-secondary;
 }
 
 .input {
   width: 100%;
-  height: 96rpx;
-  padding: 0 28rpx;
-  background: $color-bg;
-  border-radius: 16rpx;
-  color: $color-text;
-  font-size: 30rpx;
-  box-sizing: border-box;
+  height: 100rpx;
+  padding: 0 $space-6;
+  background: rgba(255, 255, 255, 0.04);
   border: 2rpx solid transparent;
-  transition: all $transition-fast;
+  border-radius: $radius-lg;
+  font-size: 30rpx;
+  color: $text-primary;
+  box-sizing: border-box;
+  transition: all $duration-fast $ease-out;
+  
+  &::placeholder {
+    color: $text-muted;
+  }
   
   &:focus {
-    border-color: $color-primary;
-    box-shadow: 0 0 0 4rpx rgba($color-primary, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: $brand-primary;
+    box-shadow: 0 0 0 6rpx rgba(225, 29, 72, 0.15);
   }
 }
 
 .login-btn {
   width: 100%;
   height: 100rpx;
+  margin-top: $space-4;
   background: $gradient-primary;
-  border-radius: 50rpx;
-  color: $color-text;
+  border-radius: $radius-full;
+  border: none;
   font-size: 32rpx;
   font-weight: 600;
-  border: none;
-  margin-top: 24rpx;
+  color: white;
   box-shadow: $shadow-primary;
-  transition: all $transition-normal;
+  transition: all $duration-fast $ease-out;
   
   &:active {
     transform: scale(0.98);
+    box-shadow: 0 4rpx 20rpx rgba(225, 29, 72, 0.5);
   }
 }
 
 .register-link {
   text-align: center;
-  margin-top: 36rpx;
-  padding: 16rpx;
-  border-radius: 16rpx;
-  transition: all $transition-fast;
+  margin-top: $space-8;
+  padding: $space-4;
+  border-radius: $radius-lg;
+  transition: all $duration-fast $ease-out;
   
   &:active {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
   }
 }
 
 .register-link text {
-  color: $color-primary;
   font-size: 28rpx;
   font-weight: 500;
+  color: $brand-primary-light;
 }
 </style>

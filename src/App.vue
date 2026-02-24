@@ -25,9 +25,14 @@ export default {
 </script>
 
 <style>
+/* ============================================
+   LunaTV Design System v2.0
+   Global Styles
+   ============================================ */
+
 /* 全局样式 */
 page {
-  background-color: #0f0f1a;
+  background-color: #000000;
   color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 28rpx;
@@ -63,6 +68,14 @@ page {
   -webkit-box-orient: vertical;
 }
 
+.text-ellipsis-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
 /* 清除按钮默认样式 */
 button {
   margin: 0;
@@ -83,7 +96,7 @@ input {
 }
 
 input::placeholder {
-  color: #666676;
+  color: #52525b;
 }
 
 /* 滚动条隐藏 */
@@ -96,60 +109,26 @@ input::placeholder {
 
 /* 图片默认样式 */
 image {
-  background-color: #1a1a2e;
+  background-color: #0a0a0f;
 }
 
-/* flex 布局工具类 */
-.flex {
-  display: flex;
+/* 触摸反馈优化 */
+view, button, text {
+  -webkit-tap-highlight-color: transparent;
 }
 
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
-.flex-1 {
-  flex: 1;
-}
-
-/* 间距工具类 */
-.p-24 {
-  padding: 24rpx;
-}
-
-.pt-safe {
-  padding-top: constant(safe-area-inset-top);
-  padding-top: env(safe-area-inset-top);
-}
-
-.pb-safe {
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
+/* 选中文字样式 */
+::selection {
+  background-color: rgba(225, 29, 72, 0.3);
+  color: #ffffff;
 }
 
 /* 全局过渡效果 */
 view, text, image {
-  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 尊重用户的动画偏好设置 */
+/* 减少动画偏好 */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -161,14 +140,16 @@ view, text, image {
   }
 }
 
-/* 触摸反馈优化 */
-view, button, text {
-  -webkit-tap-highlight-color: transparent;
+/* Focus 样式 */
+:focus-visible {
+  outline: 2rpx solid #E11D48;
+  outline-offset: 2rpx;
 }
 
-/* 选中文字样式 */
-::selection {
-  background-color: rgba(255, 107, 107, 0.3);
-  color: #ffffff;
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+  page {
+    background-color: #000000;
+  }
 }
 </style>
