@@ -137,7 +137,7 @@ export default {
       try {
         const res = await new Promise((resolve, reject) => {
           uni.request({
-            url: `/api/douban?type=${this.getDoubanType()}&tag=${this.getTag()}&pageStart=${this.pageStart}&pageSize=${this.pageSize}`,
+            url: buildUrl(`/api/douban?type=${this.getDoubanType()}&tag=${this.getTag()}&pageStart=${this.pageStart}&pageSize=${this.pageSize}`),
             withCredentials: true,
             success: resolve,
             fail: reject
@@ -252,39 +252,73 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/common.scss';
+@import '../../styles/design-system.scss';
 
 .page {
-  height: 100vh;
-  background: $color-bg;
+  min-height: 100vh;
+  background: $bg-base;
   display: flex;
   flex-direction: column;
 }
 
+/* ============================================
+   Header
+   ============================================ */
+
 .header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24rpx;
-  padding-top: calc(24rpx + constant(safe-area-inset-top));
-  padding-top: calc(24rpx + env(safe-area-inset-top));
-  background: $color-bg-secondary;
+  padding: $space-6;
+  padding-top: calc(#{$space-6} + constant(safe-area-inset-top));
+  padding-top: calc(#{$space-6} + env(safe-area-inset-top));
 }
 
-.back, .placeholder {
-  width: 60rpx;
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+}
+
+.back {
+  position: relative;
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-full;
+  transition: all $duration-fast $ease-out;
+  
+  &:active {
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(0.95);
+  }
 }
 
 .back text {
-  color: $color-text;
+  color: $text-primary;
   font-size: 36rpx;
 }
 
-.header-title {
-  color: $color-text;
-  font-size: 36rpx;
-  font-weight: bold;
+.placeholder {
+  width: 72rpx;
 }
+
+.header-title {
+  position: relative;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+/* ============================================
+   Content
+   ============================================ */
 
 .content {
   flex: 1;
@@ -294,9 +328,13 @@ export default {
 .grid {
   display: flex;
   flex-wrap: wrap;
-  padding: 16rpx;
-  gap: 16rpx;
+  padding: $space-4;
+  gap: $space-4;
 }
+
+/* ============================================
+   Video Card
+   ============================================ */
 
 .item {
   width: calc(50% - 8rpx);
@@ -305,36 +343,72 @@ export default {
 .item-cover {
   width: 100%;
   height: 280rpx;
-  border-radius: 12rpx;
-  background: $color-bg-secondary;
+  border-radius: $radius-lg;
+  background: $bg-elevated;
+  transition: all $duration-normal $ease-out;
+}
+
+.item:active .item-cover {
+  transform: scale(0.98);
 }
 
 .item-info {
-  padding: 12rpx 8rpx;
+  padding: $space-3 $space-2;
 }
 
 .item-title {
-  color: $color-text;
-  font-size: 26rpx;
   display: block;
+  font-size: 26rpx;
+  font-weight: 500;
+  color: $text-primary;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .item-rate {
-  color: $color-warning;
-  font-size: 22rpx;
-  margin-top: 4rpx;
   display: block;
+  margin-top: $space-1;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: $accent-gold;
 }
 
-.loading, .no-more {
-  text-align: center;
-  padding: 32rpx;
+/* ============================================
+   States
+   ============================================ */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-8;
   
   text {
-    color: $color-text-muted;
+    color: $text-muted;
+    font-size: 26rpx;
+  }
+}
+
+.loading-spinner {
+  width: 48rpx;
+  height: 48rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.1);
+  border-top-color: $brand-primary;
+  border-radius: $radius-full;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.no-more {
+  text-align: center;
+  padding: $space-8;
+  
+  text {
+    color: $text-muted;
     font-size: 26rpx;
   }
 }
@@ -344,15 +418,18 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100rpx;
+  padding: $space-20;
   
   text {
-    color: $color-text-muted;
+    color: $text-muted;
     font-size: 30rpx;
   }
 }
 
-/* 响应式 */
+/* ============================================
+   Responsive
+   ============================================ */
+
 @media screen and (min-width: 414px) {
   .item-cover { height: 320rpx; }
 }
@@ -362,5 +439,10 @@ export default {
     width: calc(33.33% - 11rpx);
   }
   .item-cover { height: 280rpx; }
+}
+
+.safe-area-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 </style>
