@@ -269,7 +269,8 @@ $icon-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' wi
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  margin: 0 -$space-6;
+  margin-left: -$space-6;
+  margin-right: -$space-6;
   padding: 0 $space-6;
   
   &::-webkit-scrollbar {
@@ -716,7 +717,7 @@ $icon-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' wi
 }
 
 /* ============================================
-   九、分类标签
+   Category Tabs
    ============================================ */
 
 .category-tabs {
@@ -725,12 +726,14 @@ $icon-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' wi
   padding: $space-3 0;
   overflow-x: auto;
   white-space: nowrap;
-  margin: 0 -$space-6;
+  margin-left: -$space-6;
+  margin-right: -$space-6;
   padding: $space-4 $space-6;
   
   &::-webkit-scrollbar {
     display: none;
   }
+}
 }
 
 .category-tab {

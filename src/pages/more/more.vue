@@ -55,7 +55,8 @@
 </template>
 
 <script>
-import { buildUrl, getApiUrl } from "../../utils/config"
+import { buildUrl } from "../../utils/request"
+import { getApiUrl } from "../../utils/config"
 export default {
   data() {
     return {
