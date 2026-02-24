@@ -306,11 +306,6 @@
       
       <view class="safe-area-bottom"></view>
     </scroll-view>
-
-    <!-- Floating Search Button -->
-    <view class="float-search" @click="goSearch">
-      <view class="float-search-icon"></view>
-    </view>
   </view>
 </template>
 
@@ -1270,55 +1265,6 @@ export default {
 .empty-tip {
   font-size: 26rpx;
   color: $text-muted;
-}
-
-/* ============================================
-   Floating Action Button
-   ============================================ */
-
-.float-search {
-  position: fixed;
-  right: $space-6;
-  bottom: calc(200rpx + constant(safe-area-inset-bottom));
-  bottom: calc(200rpx + env(safe-area-inset-bottom));
-  width: 108rpx;
-  height: 108rpx;
-  border-radius: $radius-full;
-  background: $gradient-primary;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: $shadow-primary, 0 0 48rpx rgba(225, 29, 72, 0.25);
-  z-index: 90;
-  transition: all $duration-normal $ease-out;
-  animation: breathe 3s ease-in-out infinite;
-  
-  &:active {
-    transform: scale(0.9);
-    box-shadow: 0 4rpx 20rpx rgba(225, 29, 72, 0.5);
-    animation: none;
-  }
-}
-
-.float-search-icon {
-  width: 44rpx;
-  height: 44rpx;
-  background-image: $icon-search;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  filter: brightness(0) invert(1);
-}
-
-@keyframes breathe {
-  0%, 100% { 
-    transform: scale(1);
-    box-shadow: $shadow-primary, 0 0 48rpx rgba(225, 29, 72, 0.25);
-  }
-  50% { 
-    transform: scale(1.05);
-    box-shadow: $shadow-primary, 0 0 64rpx rgba(225, 29, 72, 0.4);
-  }
 }
 
 /* ============================================
