@@ -76,6 +76,13 @@ export default {
       }
     },
     getVersion() {
+      // #ifdef APP-PLUS
+      plus.runtime.getProperty(plus.runtime.appid, (widgetInfo) => {
+        this.appVersion = widgetInfo.version || '1.0.0'
+      })
+      // #endif
+      
+      // #ifndef APP-PLUS
       try {
         const accountInfo = uni.getAccountInfoSync ? uni.getAccountInfoSync() : null
         if (accountInfo && accountInfo.miniProgram) {
@@ -84,6 +91,7 @@ export default {
       } catch (e) {
         this.appVersion = '1.0.0'
       }
+      // #endif
     },
     clearCache() {
       uni.showModal({
@@ -116,13 +124,11 @@ export default {
 
       uni.showLoading({ title: '检查中...', mask: true })
       try {
-        const updateInfo = await doCheckUpdate()
+        const updateInfo = await doCheckUpdate(false)
         uni.hideLoading()
         
         if (updateInfo) {
           showUpdateDialog(updateInfo)
-        } else {
-          uni.showToast({ title: '已是最新版本', icon: 'success' })
         }
       } catch (error) {
         uni.hideLoading()

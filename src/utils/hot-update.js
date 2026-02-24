@@ -3,30 +3,44 @@ import { buildUrl } from './request'
 const HOT_UPDATE_STORAGE_KEY = 'hot_update_info'
 
 function getPlatform() {
+  // #ifdef APP-PLUS
+  return plus.os.name.toLowerCase() // 'android' or 'ios'
+  // #endif
+  
+  // #ifndef APP-PLUS
   const platform = uni.getSystemInfoSync().platform
   if (platform === 'android') return 'android'
   if (platform === 'ios') return 'ios'
   return 'android'
+  // #endif
 }
 
-function getCurrentVersionCode() {
-  try {
-    const accountInfo = uni.getAccountInfoSync ? uni.getAccountInfoSync() : null
-    if (accountInfo && accountInfo.miniProgram) {
-      return parseInt(accountInfo.miniProgram.appVersionCode || '100', 10)
-    }
-  } catch (e) {}
-  return 100
-}
-
-function getCurrentVersion() {
-  try {
-    const accountInfo = uni.getAccountInfoSync ? uni.getAccountInfoSync() : null
-    if (accountInfo && accountInfo.miniProgram) {
-      return accountInfo.miniProgram.appVersion || '1.0.0'
-    }
-  } catch (e) {}
-  return '1.0.0'
+// 同步获取当前版本信息（APP端使用plus.runtime）
+function getCurrentVersionInfo() {
+  return new Promise((resolve) => {
+    // #ifdef APP-PLUS
+    plus.runtime.getProperty(plus.runtime.appid, (widgetInfo) => {
+      resolve({
+        version: widgetInfo.version || '1.0.0',
+        versionCode: parseInt(widgetInfo.versionCode || '100', 10)
+      })
+    })
+    // #endif
+    
+    // #ifndef APP-PLUS
+    try {
+      const accountInfo = uni.getAccountInfoSync ? uni.getAccountInfoSync() : null
+      if (accountInfo && accountInfo.miniProgram) {
+        resolve({
+          version: accountInfo.miniProgram.appVersion || '1.0.0',
+          versionCode: parseInt(accountInfo.miniProgram.appVersionCode || '100', 10)
+        })
+        return
+      }
+    } catch (e) {}
+    resolve({ version: '1.0.0', versionCode: 100 })
+    // #endif
+  })
 }
 
 function getHotUpdateInfo() {
@@ -55,8 +69,8 @@ export async function checkUpdate(silent) {
   // #endif
 
   const platform = getPlatform()
-  const versionCode = getCurrentVersionCode()
-  const version = getCurrentVersion()
+  const versionInfo = await getCurrentVersionInfo()
+  const { version, versionCode } = versionInfo
 
   console.log('[HotUpdate] checking update:', { platform, versionCode, version })
 
@@ -67,20 +81,26 @@ export async function checkUpdate(silent) {
         method: 'GET',
         timeout: 10000,
         success: (res) => {
+          console.log('[HotUpdate] response:', res.statusCode, JSON.stringify(res.data))
           if (res.statusCode === 200) {
             resolve(res.data)
           } else {
-            reject(new Error('Request failed'))
+            reject(new Error('Request failed: ' + res.statusCode))
           }
         },
         fail: (err) => {
+          console.error('[HotUpdate] request failed:', err)
           reject(err)
         }
       })
     })
 
     if (!response.success || !response.hasUpdate) {
-      console.log('[HotUpdate] no update available')
+      console.log('[HotUpdate] no update available, hasUpdate:', response.hasUpdate)
+      // 显示提示（非静默模式）
+      if (!silent) {
+        uni.showToast({ title: '已是最新版本', icon: 'success' })
+      }
       return null
     }
 
@@ -104,9 +124,13 @@ export async function checkUpdate(silent) {
     hotUpdateInfo.lastCheckTime = Date.now()
     saveHotUpdateInfo(hotUpdateInfo)
 
+    console.log('[HotUpdate] found update:', updateInfo)
     return updateInfo
   } catch (error) {
     console.error('[HotUpdate] check update failed:', error)
+    if (!silent) {
+      uni.showToast({ title: '检查更新失败', icon: 'none' })
+    }
     return null
   }
 }
