@@ -29,11 +29,12 @@ export default {
 page {
   background-color: #0f0f1a;
   color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 28rpx;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* 安全区域适配 */
@@ -69,6 +70,7 @@ button {
   background: none;
   border: none;
   line-height: inherit;
+  font-weight: inherit;
 }
 
 button::after {
@@ -81,7 +83,7 @@ input {
 }
 
 input::placeholder {
-  color: #666666;
+  color: #666676;
 }
 
 /* 滚动条隐藏 */
@@ -140,5 +142,33 @@ image {
 .pb-safe {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 全局过渡效果 */
+view, text, image {
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* 尊重用户的动画偏好设置 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 触摸反馈优化 */
+view, button, text {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 选中文字样式 */
+::selection {
+  background-color: rgba(255, 107, 107, 0.3);
+  color: #ffffff;
 }
 </style>

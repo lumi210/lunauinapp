@@ -53,16 +53,25 @@
         <text class="section-title">会员中心</text>
         <view class="menu-list">
           <view class="menu-item" @click="goPage('/pages/points/points')">
+            <view class="menu-icon menu-icon-coin"></view>
             <text>积分兑换</text>
-            <text class="arrow">&gt;</text>
+            <view class="item-extra">
+              <view class="arrow-icon"></view>
+            </view>
           </view>
           <view class="menu-item" @click="goPage('/pages/invitation/invitation')">
+            <view class="menu-icon menu-icon-share"></view>
             <text>邀请好友</text>
-            <text class="arrow">&gt;</text>
+            <view class="item-extra">
+              <view class="arrow-icon"></view>
+            </view>
           </view>
           <view class="menu-item" @click="goPage('/pages/cardkey/cardkey')">
+            <view class="menu-icon menu-icon-key"></view>
             <text>卡密充值</text>
-            <text class="arrow">&gt;</text>
+            <view class="item-extra">
+              <view class="arrow-icon"></view>
+            </view>
           </view>
         </view>
       </view>
@@ -71,17 +80,19 @@
         <text class="section-title">我的内容</text>
         <view class="menu-list">
           <view class="menu-item" @click="goPage('/pages/favorites/favorites')">
+            <view class="menu-icon menu-icon-bookmark"></view>
             <text>我的收藏</text>
             <view class="item-extra">
               <text class="item-count" v-if="favoriteCount > 0">{{ favoriteCount }}</text>
-              <text class="arrow">&gt;</text>
+              <view class="arrow-icon"></view>
             </view>
           </view>
           <view class="menu-item" @click="goPage('/pages/history/history')">
+            <view class="menu-icon menu-icon-clock"></view>
             <text>观看历史</text>
             <view class="item-extra">
               <text class="item-count" v-if="playCount > 0">{{ playCount }}</text>
-              <text class="arrow">&gt;</text>
+              <view class="arrow-icon"></view>
             </view>
           </view>
         </view>
@@ -91,17 +102,24 @@
         <text class="section-title">设置</text>
         <view class="menu-list">
           <view class="menu-item" @click="goPage('/pages/settings/settings')">
+            <view class="menu-icon menu-icon-settings"></view>
             <text>设置</text>
-            <text class="arrow">&gt;</text>
+            <view class="item-extra">
+              <view class="arrow-icon"></view>
+            </view>
           </view>
           <view class="menu-item" v-if="userInfo" @click="changePassword">
+            <view class="menu-icon menu-icon-lock"></view>
             <text>修改密码</text>
-            <text class="arrow">&gt;</text>
+            <view class="item-extra">
+              <view class="arrow-icon"></view>
+            </view>
           </view>
         </view>
       </view>
 
       <view class="logout-btn" v-if="userInfo" @click="logout">
+        <view class="logout-icon"></view>
         <text>退出登录</text>
       </view>
       
@@ -291,16 +309,19 @@ export default {
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 24rpx;
-  padding-top: calc(24rpx + constant(safe-area-inset-top));
-  padding-top: calc(24rpx + env(safe-area-inset-top));
-  background: $color-bg-secondary;
+  padding: 28rpx;
+  padding-top: calc(28rpx + constant(safe-area-inset-top));
+  padding-top: calc(28rpx + env(safe-area-inset-top));
+  background: rgba($color-bg-secondary, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1rpx solid $color-border;
 }
 
 .header-title {
   color: $color-text;
-  font-size: 36rpx;
-  font-weight: bold;
+  font-size: 38rpx;
+  font-weight: 700;
 }
 
 .content {
@@ -309,48 +330,55 @@ export default {
 }
 
 .user-card {
-  padding: 32rpx;
-  background: $color-bg-secondary;
-  border-radius: 16rpx;
-  margin-bottom: 24rpx;
+  padding: 36rpx;
+  background: rgba($color-bg-secondary, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24rpx;
+  margin-bottom: 28rpx;
+  border: 1rpx solid $color-border;
+  box-shadow: $shadow-card;
 }
 
 .user-header {
   display: flex;
   align-items: center;
-  margin-bottom: 16rpx;
+  margin-bottom: 20rpx;
 }
 
 .username {
   color: $color-text;
-  font-size: 36rpx;
-  font-weight: bold;
+  font-size: 40rpx;
+  font-weight: 700;
+  letter-spacing: 0.5rpx;
 }
 
 .vip-badge {
   margin-left: 16rpx;
-  padding: 4rpx 16rpx;
-  background: linear-gradient(135deg, #ffd700, #ffaa00);
-  border-radius: 16rpx;
+  padding: 6rpx 20rpx;
+  background: $gradient-gold;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(#ffd700, 0.3);
   
   text {
     color: $color-bg;
     font-size: 22rpx;
-    font-weight: bold;
+    font-weight: 700;
   }
 }
 
 .cardkey-info {
-  padding: 16rpx;
-  background: rgba(#ffd700, 0.1);
-  border-radius: 12rpx;
-  margin-bottom: 16rpx;
+  padding: 20rpx;
+  background: rgba(#ffd700, 0.08);
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  border: 1rpx solid rgba(#ffd700, 0.15);
 }
 
 .cardkey-row {
   display: flex;
   justify-content: space-between;
-  padding: 8rpx 0;
+  padding: 10rpx 0;
 }
 
 .cardkey-label {
@@ -361,6 +389,7 @@ export default {
 .cardkey-value {
   color: $color-text;
   font-size: 26rpx;
+  font-weight: 500;
   
   &.active {
     color: $color-secondary;
@@ -370,103 +399,188 @@ export default {
 .login-text {
   color: $color-primary;
   font-size: 32rpx;
+  font-weight: 500;
   text-align: center;
   display: block;
+  padding: 20rpx 0;
 }
 
 .stats {
   display: flex;
-  margin-top: 16rpx;
+  margin-top: 20rpx;
+  background: rgba($color-bg, 0.3);
+  border-radius: 16rpx;
+  padding: 8rpx;
 }
 
 .stat-item {
   flex: 1;
   text-align: center;
-  padding: 16rpx;
+  padding: 20rpx 16rpx;
+  border-radius: 12rpx;
+  transition: all $transition-fast;
   
   &:active {
-    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 
 .stat-value {
   color: $color-text;
-  font-size: 36rpx;
+  font-size: 40rpx;
+  font-weight: 700;
   display: block;
 }
 
 .stat-label {
   color: $color-text-muted;
   font-size: 24rpx;
+  margin-top: 8rpx;
+  display: block;
 }
 
 .menu-section {
-  margin-bottom: 24rpx;
+  margin-bottom: 28rpx;
 }
 
 .section-title {
   color: $color-text-muted;
   font-size: 26rpx;
-  margin-bottom: 12rpx;
+  font-weight: 500;
+  margin-bottom: 16rpx;
+  margin-left: 8rpx;
   display: block;
+  letter-spacing: 0.5rpx;
 }
 
 .menu-list {
-  background: $color-bg-secondary;
-  border-radius: 16rpx;
+  background: rgba($color-bg-secondary, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20rpx;
+  border: 1rpx solid $color-border;
+  overflow: hidden;
 }
 
 .menu-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 28rpx 24rpx;
+  padding: 32rpx 28rpx;
   border-bottom: 1rpx solid $color-border;
+  transition: all $transition-fast;
   
   &:last-child {
     border-bottom: none;
   }
   
   &:active {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.03);
   }
   
   text {
     color: $color-text;
     font-size: 30rpx;
+    font-weight: 500;
+  }
+}
+
+.menu-icon {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 20rpx;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.85;
+  
+  &.menu-icon-coin {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f5a623' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8'/%3E%3Cpath d='M12 18V6'/%3E%3C/svg%3E");
+  }
+  
+  &.menu-icon-share {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234ecdc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='18' cy='5' r='3'/%3E%3Ccircle cx='6' cy='12' r='3'/%3E%3Ccircle cx='18' cy='19' r='3'/%3E%3Cline x1='8.59' y1='13.51' x2='15.42' y2='17.49'/%3E%3Cline x1='15.41' y1='6.51' x2='8.59' y2='10.49'/%3E%3C/svg%3E");
+  }
+  
+  &.menu-icon-key {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ff6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4'/%3E%3C/svg%3E");
+  }
+  
+  &.menu-icon-bookmark {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ff6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
+  }
+  
+  &.menu-icon-clock {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234ecdc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
+  }
+  
+  &.menu-icon-settings {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888898' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z'/%3E%3C/svg%3E");
+  }
+  
+  &.menu-icon-lock {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888898' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E");
   }
 }
 
 .item-extra {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .item-count {
   color: $color-text-muted;
   font-size: 26rpx;
   margin-right: 16rpx;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
 }
 
-.arrow {
-  color: $color-text-muted;
+.arrow-icon {
+  width: 28rpx;
+  height: 28rpx;
+  background-image: $icon-arrow-right;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.5;
 }
 
 .logout-btn {
   margin-top: 48rpx;
-  padding: 28rpx;
-  background: $color-bg-secondary;
-  border-radius: 16rpx;
+  padding: 32rpx;
+  background: rgba($color-bg-secondary, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20rpx;
+  border: 1rpx solid $color-border;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  transition: all $transition-fast;
   
   &:active {
-    opacity: 0.8;
+    background: rgba($color-primary, 0.1);
+    transform: scale(0.98);
   }
   
   text {
     color: $color-primary;
     font-size: 30rpx;
+    font-weight: 500;
   }
+}
+
+.logout-icon {
+  width: 36rpx;
+  height: 36rpx;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ff6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'/%3E%3Cpolyline points='16 17 21 12 16 7'/%3E%3Cline x1='21' y1='12' x2='9' y2='12'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 @media screen and (min-width: 768px) {

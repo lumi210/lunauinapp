@@ -1,13 +1,16 @@
 /* 响应式布局变量 */
-$screen-xs: 320px;   // iPhone SE
-$screen-sm: 375px;   // iPhone 6/7/8
-$screen-md: 414px;   // iPhone Plus
-$screen-lg: 428px;   // iPhone Pro Max
-$screen-xl: 768px;   // iPad Mini
+$screen-xs: 320px;
+$screen-sm: 375px;
+$screen-md: 414px;
+$screen-lg: 428px;
+$screen-xl: 768px;
 
-/* 颜色变量 */
+/* 颜色变量 - 增强对比度和视觉层次 */
 $color-primary: #ff6b6b;
+$color-primary-light: #ff8a8a;
+$color-primary-dark: #e55555;
 $color-secondary: #4ecdc4;
+$color-secondary-light: #6ed9d2;
 $color-warning: #f5a623;
 $color-danger: #ff4757;
 $color-success: #2ed573;
@@ -15,9 +18,23 @@ $color-bg: #0f0f1a;
 $color-bg-secondary: #1a1a2e;
 $color-bg-tertiary: #2d2d44;
 $color-text: #ffffff;
-$color-text-secondary: #aaaaaa;
-$color-text-muted: #888888;
-$color-border: #2d2d44;
+$color-text-secondary: #b8b8c8;
+$color-text-muted: #888898;
+$color-border: rgba(255, 255, 255, 0.08);
+
+/* 新增渐变色 */
+$gradient-primary: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+$gradient-secondary: linear-gradient(135deg, $color-secondary 0%, $color-secondary-light 100%);
+$gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+$gradient-hero: linear-gradient(to top, $color-bg 0%, rgba($color-bg, 0.85) 40%, transparent 100%);
+
+/* 阴影 - 增强层次感 */
+$shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+$shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.2);
+$shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.25);
+$shadow-primary: 0 4rpx 20rpx rgba($color-primary, 0.35);
+$shadow-card: 0 8rpx 24rpx rgba(0, 0, 0, 0.3);
+$shadow-float: 0 12rpx 40rpx rgba(0, 0, 0, 0.4);
 
 /* 间距变量 */
 $spacing-xs: 8rpx;
@@ -39,11 +56,22 @@ $radius-sm: 8rpx;
 $radius-md: 12rpx;
 $radius-lg: 16rpx;
 $radius-xl: 24rpx;
+$radius-full: 9999rpx;
 
-/* 阴影 */
-$shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
-$shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.15);
-$shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
+/* 过渡动画 */
+$transition-fast: 0.15s ease;
+$transition-normal: 0.25s ease;
+$transition-slow: 0.35s ease;
+$ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+$ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+/* SVG 图标背景 - 使用 base64 编码的 SVG */
+$icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888898' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+$icon-play: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='5 3 19 12 5 21 5 3'/%3E%3C/svg%3E");
+$icon-info: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='16' x2='12' y2='12'/%3E%3Cline x1='12' y1='8' x2='12.01' y2='8'/%3E%3C/svg%3E");
+$icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888898' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'/%3E%3C/svg%3E");
+$icon-user: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+$icon-back: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 18 9 12 15 6'/%3E%3C/svg%3E");
 
 /* 安全区域 */
 .safe-area-top {
@@ -83,21 +111,26 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
   flex-direction: column;
 }
 
-/* 通用头部 */
+/* 通用头部 - 玻璃态效果 */
 .page-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: $color-bg-secondary;
+  background: rgba($color-bg-secondary, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: $spacing-md;
   padding-top: calc(#{$spacing-md} + constant(safe-area-inset-top));
   padding-top: calc(#{$spacing-md} + env(safe-area-inset-top));
+  border-bottom: 1rpx solid $color-border;
   
   &.transparent {
     background: transparent;
     position: absolute;
     left: 0;
     right: 0;
+    backdrop-filter: none;
+    border-bottom: none;
   }
 }
 
@@ -108,12 +141,16 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
   -webkit-overflow-scrolling: touch;
 }
 
-/* 通用卡片 */
+/* 通用卡片 - 增强玻璃态 */
 .card {
-  background-color: $color-bg-secondary;
+  background: rgba($color-bg-secondary, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: $radius-lg;
   padding: $spacing-lg;
   margin-bottom: $spacing-md;
+  border: 1rpx solid $color-border;
+  box-shadow: $shadow-card;
 }
 
 /* 通用列表项 */
@@ -122,29 +159,50 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
   align-items: center;
   padding: $spacing-lg 0;
   border-bottom: 1rpx solid $color-border;
+  transition: background $transition-fast;
   
   &:last-child {
     border-bottom: none;
   }
+  
+  &:active {
+    background: rgba(255, 255, 255, 0.03);
+  }
 }
 
-/* 通用按钮 */
+/* 通用按钮 - 增强交互效果 */
 .btn {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: $radius-xl;
   font-size: $font-lg;
-  transition: all 0.2s ease;
+  font-weight: 500;
+  transition: all $transition-normal;
+  cursor: pointer;
   
   &-primary {
-    background: linear-gradient(135deg, $color-primary, lighten($color-primary, 10%));
+    background: $gradient-primary;
     color: $color-text;
+    box-shadow: $shadow-primary;
+    
+    &:active {
+      transform: scale(0.97);
+      opacity: 0.9;
+    }
   }
   
   &-secondary {
-    background-color: $color-bg-tertiary;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: $color-text;
+    border: 1rpx solid $color-border;
+    
+    &:active {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(0.97);
+    }
   }
   
   &-small {
@@ -165,18 +223,13 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
     font-size: $font-lg;
   }
   
-  &:active {
-    opacity: 0.8;
-    transform: scale(0.98);
-  }
-  
   &-disabled {
     opacity: 0.5;
     pointer-events: none;
   }
 }
 
-/* 通用输入框 */
+/* 通用输入框 - 增强焦点状态 */
 .input {
   width: 100%;
   height: 88rpx;
@@ -187,10 +240,11 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
   color: $color-text;
   box-sizing: border-box;
   border: 2rpx solid transparent;
-  transition: border-color 0.2s ease;
+  transition: all $transition-fast;
   
   &:focus {
     border-color: $color-primary;
+    box-shadow: 0 0 0 4rpx rgba($color-primary, 0.15);
   }
   
   &::placeholder {
@@ -205,20 +259,26 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
   padding: $spacing-xs $spacing-sm;
   border-radius: $radius-sm;
   font-size: $font-xs;
+  font-weight: 500;
   
   &-primary {
     background-color: rgba($color-primary, 0.2);
-    color: $color-primary;
+    color: $color-primary-light;
   }
   
   &-secondary {
     background-color: rgba($color-secondary, 0.2);
-    color: $color-secondary;
+    color: $color-secondary-light;
   }
   
   &-warning {
     background-color: rgba($color-warning, 0.2);
     color: $color-warning;
+  }
+  
+  &-gold {
+    background: $gradient-gold;
+    color: $color-bg;
   }
 }
 
@@ -234,12 +294,14 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
     width: 200rpx;
     height: 200rpx;
     margin-bottom: $spacing-lg;
+    opacity: 0.6;
   }
   
   &-text {
     font-size: $font-lg;
-    color: $color-text-muted;
+    color: $color-text-secondary;
     margin-bottom: $spacing-sm;
+    font-weight: 500;
   }
   
   &-tip {
@@ -248,7 +310,7 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
   }
 }
 
-/* 通用加载状态 */
+/* 通用加载状态 - 优化动画 */
 .loading-state {
   display: flex;
   align-items: center;
@@ -258,11 +320,11 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
   font-size: $font-sm;
 }
 
-/* 通用骨架屏 */
+/* 通用骨架屏 - 增强动画 */
 .skeleton {
   background: linear-gradient(90deg, $color-bg-secondary 25%, $color-bg-tertiary 50%, $color-bg-secondary 75%);
   background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
 }
 
 @keyframes skeleton-loading {
@@ -343,7 +405,7 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
 .video-container {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 比例 */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   
@@ -395,3 +457,98 @@ $shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
 .flex-1 { flex: 1; }
 .flex-auto { flex: auto; }
 .flex-none { flex: none; }
+
+/* 图标工具类 */
+.icon {
+  display: inline-block;
+  width: 48rpx;
+  height: 48rpx;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  &-sm {
+    width: 32rpx;
+    height: 32rpx;
+  }
+  
+  &-lg {
+    width: 64rpx;
+    height: 64rpx;
+  }
+  
+  &-search {
+    background-image: $icon-search;
+  }
+  
+  &-play {
+    background-image: $icon-play;
+  }
+  
+  &-info {
+    background-image: $icon-info;
+  }
+  
+  &-arrow-right {
+    background-image: $icon-arrow-right;
+  }
+  
+  &-user {
+    background-image: $icon-user;
+  }
+  
+  &-back {
+    background-image: $icon-back;
+  }
+}
+
+/* 动画关键帧 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* 动画工具类 */
+.animate-fade-in {
+  animation: fadeIn $transition-normal $ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp $transition-normal $ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* 尊重用户的动画偏好设置 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

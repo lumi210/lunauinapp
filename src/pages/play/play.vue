@@ -73,7 +73,7 @@
           <text class="loading-text">{{ loadingMessage }}</text>
         </view>
         <view v-else-if="errorMessage" class="error-state">
-          <text class="error-icon">&#9888;</text>
+          <view class="error-icon"></view>
           <text class="error-text">{{ errorMessage }}</text>
           <view class="retry-btn" @click="retryLoad">
             <text>重试</text>
@@ -91,7 +91,7 @@
           <text class="title">{{ title }}</text>
           <view class="action-btns">
             <view class="action-btn" :class="{ active: isFavorited }" @click="toggleFavorite">
-              <text class="action-icon">{{ isFavorited ? '&#9829;' : '&#9825;' }}</text>
+              <view class="action-icon" :class="{ 'icon-heart-filled': isFavorited, 'icon-heart': !isFavorited }"></view>
               <text class="action-text">{{ isFavorited ? '已收藏' : '收藏' }}</text>
             </view>
           </view>
@@ -1478,9 +1478,13 @@ export default {
 }
 
 .error-icon {
-  font-size: 80rpx;
-  color: $color-danger;
+  width: 80rpx;
+  height: 80rpx;
   margin-bottom: 16rpx;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='%23ff4757' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/%3E%3Cline x1='12' y1='9' x2='12' y2='13'/%3E%3Cline x1='12' y1='17' x2='12.01' y2='17'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .error-text {
@@ -1546,8 +1550,19 @@ export default {
 }
 
 .action-icon {
-  font-size: 36rpx;
-  color: $color-text-muted;
+  width: 36rpx;
+  height: 36rpx;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  &.icon-heart {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888898' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E");
+  }
+  
+  &.icon-heart-filled {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23ff6b6b' stroke='%23ff6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z'/%3E%3C/svg%3E");
+  }
 }
 
 .action-text {

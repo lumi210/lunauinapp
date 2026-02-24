@@ -2,13 +2,14 @@
   <view class="page">
     <view class="header">
       <view class="back" @click="goBack">
-        <text>&lt;</text>
+        <view class="back-icon"></view>
       </view>
       <text class="header-title">登录</text>
     </view>
 
     <view class="content">
       <view class="logo-section">
+        <view class="logo-icon"></view>
         <text class="app-name">{{ siteName }}</text>
         <text class="app-desc">影视聚合播放平台</text>
       </view>
@@ -116,10 +117,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '../../styles/common.scss';
+
 .page {
   min-height: 100vh;
-  background: #0f0f1a;
+  background: $color-bg;
 }
 
 .header {
@@ -128,92 +131,151 @@ export default {
   padding: 24rpx;
   padding-top: calc(24rpx + constant(safe-area-inset-top));
   padding-top: calc(24rpx + env(safe-area-inset-top));
-  background: #1a1a2e;
+  background: rgba($color-bg-secondary, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1rpx solid $color-border;
 }
 
 .back {
-  width: 60rpx;
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all $transition-fast;
+  
+  &:active {
+    background: rgba(255, 255, 255, 0.1);
+  }
 }
 
-.back text {
-  color: #fff;
-  font-size: 36rpx;
+.back-icon {
+  width: 28rpx;
+  height: 28rpx;
+  background-image: $icon-back;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .header-title {
-  color: #fff;
+  color: $color-text;
   font-size: 36rpx;
-  font-weight: bold;
+  font-weight: 700;
+  margin-left: 8rpx;
 }
 
 .content {
-  padding: 48rpx 32rpx;
+  padding: 64rpx 32rpx;
 }
 
 .logo-section {
   text-align: center;
-  margin-bottom: 64rpx;
+  margin-bottom: 72rpx;
+}
+
+.logo-icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0 auto 24rpx;
+  background: $gradient-primary;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: $shadow-primary;
 }
 
 .app-name {
-  color: #ff6b6b;
-  font-size: 48rpx;
-  font-weight: bold;
+  color: $color-primary;
+  font-size: 52rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  display: block;
 }
 
 .app-desc {
-  color: #888;
+  color: $color-text-muted;
   font-size: 26rpx;
-  margin-top: 12rpx;
+  margin-top: 16rpx;
   display: block;
 }
 
 .form {
-  background: #1a1a2e;
-  border-radius: 16rpx;
-  padding: 32rpx;
+  background: rgba($color-bg-secondary, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx;
+  border: 1rpx solid $color-border;
+  box-shadow: $shadow-card;
 }
 
 .form-item {
-  margin-bottom: 32rpx;
+  margin-bottom: 36rpx;
 }
 
 .label {
-  color: #fff;
+  color: $color-text-secondary;
   font-size: 28rpx;
+  font-weight: 500;
   margin-bottom: 16rpx;
   display: block;
 }
 
 .input {
   width: 100%;
-  height: 88rpx;
-  padding: 0 24rpx;
-  background: #0f0f1a;
-  border-radius: 12rpx;
-  color: #fff;
+  height: 96rpx;
+  padding: 0 28rpx;
+  background: $color-bg;
+  border-radius: 16rpx;
+  color: $color-text;
   font-size: 30rpx;
   box-sizing: border-box;
+  border: 2rpx solid transparent;
+  transition: all $transition-fast;
+  
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 4rpx rgba($color-primary, 0.15);
+  }
 }
 
 .login-btn {
   width: 100%;
-  height: 96rpx;
-  background: #ff6b6b;
-  border-radius: 48rpx;
-  color: #fff;
+  height: 100rpx;
+  background: $gradient-primary;
+  border-radius: 50rpx;
+  color: $color-text;
   font-size: 32rpx;
+  font-weight: 600;
   border: none;
-  margin-top: 16rpx;
+  margin-top: 24rpx;
+  box-shadow: $shadow-primary;
+  transition: all $transition-normal;
+  
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
 .register-link {
   text-align: center;
-  margin-top: 32rpx;
+  margin-top: 36rpx;
+  padding: 16rpx;
+  border-radius: 16rpx;
+  transition: all $transition-fast;
+  
+  &:active {
+    background: rgba(255, 255, 255, 0.05);
+  }
 }
 
 .register-link text {
-  color: #ff6b6b;
-  font-size: 26rpx;
+  color: $color-primary;
+  font-size: 28rpx;
+  font-weight: 500;
 }
 </style>

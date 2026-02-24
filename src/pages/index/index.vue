@@ -4,7 +4,7 @@
     <view class="custom-navbar">
       <text class="navbar-title">{{ siteName }}</text>
       <view class="navbar-search" @click="goSearch">
-        <text class="search-icon">&#128269;</text>
+        <view class="search-icon"></view>
         <text class="search-placeholder">搜索影片...</text>
       </view>
     </view>
@@ -40,11 +40,11 @@
               </view>
               <view class="hero-actions">
                 <view class="hero-btn hero-btn-play" @click="playBanner(item)">
-                  <text class="hero-btn-icon">&#9654;</text>
+                  <view class="hero-btn-icon icon-play-sm"></view>
                   <text>播放</text>
                 </view>
                 <view class="hero-btn hero-btn-info" @click="showDetail(item)">
-                  <text class="hero-btn-icon">&#8505;</text>
+                  <view class="hero-btn-icon icon-info-sm"></view>
                   <text>详情</text>
                 </view>
               </view>
@@ -125,7 +125,7 @@
         <view class="section-header">
           <text class="section-title">热门电影</text>
           <text class="section-more" @click="goMore('movie', '热门电影')">
-            更多 <text class="more-arrow">&#10095;</text>
+            更多 <view class="more-arrow"></view>
           </text>
         </view>
         <scroll-view scroll-x class="scroll-x" :show-scrollbar="false" enable-flex>
@@ -156,7 +156,7 @@
         <view class="section-header">
           <text class="section-title">热门电视剧</text>
           <text class="section-more" @click="goMore('tv', '热门电视剧')">
-            更多 <text class="more-arrow">&#10095;</text>
+            更多 <view class="more-arrow"></view>
           </text>
         </view>
         <scroll-view scroll-x class="scroll-x" :show-scrollbar="false" enable-flex>
@@ -187,7 +187,7 @@
         <view class="section-header">
           <text class="section-title">热门综艺</text>
           <text class="section-more" @click="goMore('variety', '热门综艺')">
-            更多 <text class="more-arrow">&#10095;</text>
+            更多 <view class="more-arrow"></view>
           </text>
         </view>
         <scroll-view scroll-x class="scroll-x" :show-scrollbar="false" enable-flex>
@@ -218,7 +218,7 @@
         <view class="section-header">
           <text class="section-title">今日番剧</text>
           <text class="section-more" @click="goMore('anime', '今日番剧')">
-            更多 <text class="more-arrow">&#10095;</text>
+            更多 <view class="more-arrow"></view>
           </text>
         </view>
         <scroll-view scroll-x class="scroll-x" :show-scrollbar="false" enable-flex>
@@ -248,7 +248,7 @@
         <view class="section-header">
           <text class="section-title">热门短剧</text>
           <text class="section-more" @click="goShortDrama">
-            更多 <text class="more-arrow">&#10095;</text>
+            更多 <view class="more-arrow"></view>
           </text>
         </view>
         <scroll-view scroll-x class="scroll-x" :show-scrollbar="false" enable-flex>
@@ -279,7 +279,7 @@
       <!-- Login Tip -->
       <view class="login-tip" v-if="!isLoggedIn" @click="goLogin">
         <view class="login-tip-icon">
-          <text>&#128100;</text>
+          <view class="icon-user-circle"></view>
         </view>
         <text class="login-tip-text">登录后查看个性化推荐</text>
         <text class="login-tip-btn">立即登录</text>
@@ -293,13 +293,13 @@
       
       <!-- Error State -->
       <view class="error-state" v-if="!loading && loadError">
-        <text class="error-icon">&#9888;</text>
+        <view class="error-icon"></view>
         <text class="error-text">请登录账号使用</text>
       </view>
       
       <!-- Empty State -->
       <view class="empty-state" v-if="!loading && !loadError && movies.length === 0 && tvShows.length === 0 && varietyShows.length === 0 && todayAnimes.length === 0 && shortDramas.length === 0">
-        <text class="empty-icon">&#128191;</text>
+        <view class="empty-icon"></view>
         <text class="empty-text">暂无影片数据</text>
         <text class="empty-tip">下拉刷新试试</text>
       </view>
@@ -309,7 +309,7 @@
 
     <!-- Floating Search Button -->
     <view class="float-search" @click="goSearch">
-      <text class="float-search-icon">&#128269;</text>
+      <view class="float-search-icon"></view>
     </view>
   </view>
 </template>
@@ -689,44 +689,59 @@ export default {
   padding-top: 88rpx;
 }
 
-/* Custom Navigation Bar */
+/* Custom Navigation Bar - 玻璃态效果 */
 .custom-navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 88rpx;
-  background: $color-bg-secondary;
+  background: rgba($color-bg-secondary, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   padding: 0 24rpx;
   padding-top: constant(safe-area-inset-top);
   padding-top: env(safe-area-inset-top);
   z-index: 100;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.3);
+  border-bottom: 1rpx solid $color-border;
 }
 
 .navbar-title {
   color: $color-primary;
   font-size: 36rpx;
-  font-weight: bold;
+  font-weight: 700;
   margin-right: 24rpx;
+  letter-spacing: 0.5rpx;
 }
 
 .navbar-search {
   flex: 1;
-  height: 60rpx;
-  background: $color-bg;
-  border-radius: 30rpx;
+  height: 64rpx;
+  background: rgba($color-bg, 0.6);
+  border-radius: 32rpx;
   display: flex;
   align-items: center;
   padding: 0 24rpx;
+  border: 1rpx solid $color-border;
+  transition: all $transition-fast;
+  
+  &:active {
+    background: rgba($color-bg, 0.8);
+    border-color: rgba($color-primary, 0.3);
+  }
 }
 
 .search-icon {
-  color: $color-text-muted;
-  font-size: 28rpx;
+  width: 36rpx;
+  height: 36rpx;
   margin-right: 12rpx;
+  background-image: $icon-search;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.7;
 }
 
 .search-placeholder {
@@ -734,13 +749,13 @@ export default {
   font-size: 26rpx;
 }
 
-/* Hero Banner */
+/* Hero Banner - 增强视觉效果 */
 .hero-banner {
   position: relative;
   width: 100%;
   height: 50vw;
-  max-height: 400rpx;
-  min-height: 280rpx;
+  max-height: 420rpx;
+  min-height: 300rpx;
   overflow: hidden;
 }
 
@@ -766,8 +781,8 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 300rpx;
-  background: linear-gradient(to top, $color-bg 0%, rgba($color-bg, 0.8) 40%, transparent 100%);
+  height: 320rpx;
+  background: $gradient-hero;
 }
 
 .hero-gradient::before {
@@ -776,8 +791,8 @@ export default {
   left: 0;
   right: 0;
   top: 0;
-  height: 200rpx;
-  background: linear-gradient(to bottom, rgba($color-bg, 0.6) 0%, transparent 100%);
+  height: 180rpx;
+  background: linear-gradient(to bottom, rgba($color-bg, 0.5) 0%, transparent 100%);
 }
 
 .hero-content {
@@ -785,46 +800,49 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 24rpx;
-  padding-bottom: 40rpx;
+  padding: 28rpx;
+  padding-bottom: 48rpx;
 }
 
 .hero-info {
-  margin-bottom: 24rpx;
+  margin-bottom: 28rpx;
 }
 
 .hero-title {
   color: $color-text;
-  font-size: 40rpx;
-  font-weight: bold;
-  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.5);
+  font-size: 44rpx;
+  font-weight: 700;
+  text-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.6);
   display: block;
-  margin-bottom: 12rpx;
+  margin-bottom: 16rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 90%;
+  letter-spacing: 0.5rpx;
 }
 
 .hero-meta {
   display: flex;
   align-items: center;
   gap: 16rpx;
-  margin-bottom: 8rpx;
+  margin-bottom: 12rpx;
 }
 
 .hero-rate {
-  background: linear-gradient(135deg, #f5a623 0%, #ff6b6b 100%);
-  color: #fff;
-  font-size: 24rpx;
-  font-weight: bold;
-  padding: 4rpx 12rpx;
+  background: $gradient-gold;
+  color: $color-bg;
+  font-size: 22rpx;
+  font-weight: 700;
+  padding: 6rpx 14rpx;
   border-radius: 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(#ffd700, 0.3);
 }
 
 .hero-year {
   color: $color-text-secondary;
   font-size: 26rpx;
+  font-weight: 500;
 }
 
 .hero-desc {
@@ -845,11 +863,13 @@ export default {
 .hero-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8rpx;
-  padding: 16rpx 32rpx;
+  padding: 18rpx 36rpx;
   border-radius: 12rpx;
   font-size: 28rpx;
-  font-weight: 500;
+  font-weight: 600;
+  transition: all $transition-normal;
   
   text {
     color: $color-text;
@@ -857,45 +877,73 @@ export default {
 }
 
 .hero-btn-icon {
-  font-size: 24rpx;
+  width: 32rpx;
+  height: 32rpx;
+  
+  &.icon-play-sm {
+    background-image: $icon-play;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  &.icon-info-sm {
+    background-image: $icon-info;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 
 .hero-btn-play {
-  background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 10%) 100%);
-  box-shadow: 0 4rpx 16rpx rgba($color-primary, 0.4);
+  background: $gradient-primary;
+  box-shadow: $shadow-primary;
+  
+  &:active {
+    transform: scale(0.96);
+    box-shadow: 0 2rpx 12rpx rgba($color-primary, 0.4);
+  }
 }
 
 .hero-btn-info {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+  
+  &:active {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(0.96);
+  }
 }
 
 .hero-indicators {
   position: absolute;
-  right: 24rpx;
-  bottom: 24rpx;
+  right: 28rpx;
+  bottom: 28rpx;
   display: flex;
-  gap: 8rpx;
+  gap: 10rpx;
 }
 
 .hero-indicator {
   width: 16rpx;
   height: 16rpx;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.35);
+  transition: all $transition-normal;
   
   &.active {
-    width: 32rpx;
+    width: 36rpx;
     border-radius: 8rpx;
     background: $color-primary;
+    box-shadow: 0 2rpx 8rpx rgba($color-primary, 0.4);
   }
 }
 
-/* Quick Categories */
+/* Quick Categories - 增强交互 */
 .quick-cats {
   display: flex;
-  padding: 16rpx 24rpx;
+  padding: 20rpx 24rpx;
   gap: 16rpx;
   background: $color-bg;
   overflow-x: auto;
@@ -908,17 +956,24 @@ export default {
 
 .quick-cat-item {
   flex-shrink: 0;
-  padding: 12rpx 28rpx;
+  padding: 14rpx 32rpx;
   border-radius: 32rpx;
   font-size: 26rpx;
-  background: $color-bg-secondary;
+  font-weight: 500;
+  background: rgba($color-bg-secondary, 0.6);
   color: $color-text-muted;
-  transition: all 0.3s ease;
+  border: 1rpx solid transparent;
+  transition: all $transition-normal;
+  
+  &:active {
+    transform: scale(0.96);
+  }
   
   &.active {
-    background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 10%) 100%);
+    background: $gradient-primary;
     color: $color-text;
-    box-shadow: 0 4rpx 12rpx rgba($color-primary, 0.3);
+    box-shadow: $shadow-primary;
+    border-color: transparent;
   }
 }
 
@@ -931,20 +986,21 @@ export default {
 
 /* Section */
 .section {
-  margin-top: 16rpx;
+  margin-top: 20rpx;
 }
 
 .section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16rpx 24rpx;
+  padding: 20rpx 24rpx;
 }
 
 .section-title {
   color: $color-text;
   font-size: 32rpx;
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.5rpx;
 }
 
 .section-more {
@@ -953,10 +1009,23 @@ export default {
   display: flex;
   align-items: center;
   gap: 4rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  transition: all $transition-fast;
+  
+  &:active {
+    background: rgba(255, 255, 255, 0.05);
+  }
 }
 
 .more-arrow {
-  font-size: 20rpx;
+  width: 24rpx;
+  height: 24rpx;
+  background-image: $icon-arrow-right;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
 }
 
 /* Scroll X */
@@ -970,95 +1039,119 @@ export default {
   display: flex;
   flex-direction: row;
   padding: 0 24rpx;
-  gap: 16rpx;
+  gap: 20rpx;
 }
 
-/* Video Card - Netflix Style */
+/* Video Card - 增强卡片效果 */
 .video-card {
   flex-shrink: 0;
   width: 200rpx;
+  transition: transform $transition-normal;
 }
 
 .video-poster-wrap {
   position: relative;
   width: 200rpx;
   height: 280rpx;
-  border-radius: 12rpx;
+  border-radius: 16rpx;
   overflow: hidden;
   background: $color-bg-secondary;
+  box-shadow: $shadow-card;
+  transition: all $transition-normal;
 }
 
 .video-poster {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform $transition-slow;
 }
 
-.video-card:active .video-poster {
-  transform: scale(1.05);
+.video-card:active .video-poster-wrap {
+  transform: scale(1.02);
+  box-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.4);
 }
 
 .video-rate {
   position: absolute;
-  top: 8rpx;
-  right: 8rpx;
-  background: linear-gradient(135deg, #f5a623 0%, #ff6b6b 100%);
-  color: #fff;
+  top: 10rpx;
+  right: 10rpx;
+  background: $gradient-gold;
+  color: $color-bg;
   font-size: 20rpx;
-  font-weight: bold;
-  padding: 4rpx 10rpx;
-  border-radius: 6rpx;
+  font-weight: 700;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
 }
 
 .video-episodes {
   position: absolute;
-  bottom: 8rpx;
-  left: 8rpx;
-  background: rgba(0, 0, 0, 0.7);
-  color: #4ecdc4;
+  bottom: 10rpx;
+  left: 10rpx;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: $color-secondary;
   font-size: 18rpx;
-  font-weight: bold;
-  padding: 4rpx 10rpx;
+  font-weight: 600;
+  padding: 4rpx 12rpx;
   border-radius: 6rpx;
 }
 
 .video-info {
-  padding: 12rpx 4rpx;
+  padding: 14rpx 4rpx;
 }
 
 .video-title {
   color: $color-text;
   font-size: 26rpx;
+  font-weight: 500;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  line-height: 1.4;
 }
 
-/* Login Tip */
+/* Login Tip - 玻璃态卡片 */
 .login-tip {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24rpx;
+  padding: 28rpx;
   margin: 24rpx;
-  background: linear-gradient(135deg, $color-bg-secondary 0%, $color-bg-tertiary 100%);
-  border-radius: 16rpx;
-  border: 1rpx solid rgba(255, 255, 255, 0.1);
+  background: rgba($color-bg-secondary, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20rpx;
+  border: 1rpx solid $color-border;
+  box-shadow: $shadow-card;
+  transition: all $transition-fast;
+  
+  &:active {
+    transform: scale(0.98);
+    background: rgba($color-bg-secondary, 0.7);
+  }
 }
 
 .login-tip-icon {
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%;
-  background: rgba($color-primary, 0.2);
+  background: rgba($color-primary, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   
-  text {
-    font-size: 40rpx;
+  .icon-user-circle {
+    width: 44rpx;
+    height: 44rpx;
+    background-image: $icon-user;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.9;
   }
 }
 
@@ -1067,17 +1160,20 @@ export default {
   margin-left: 20rpx;
   color: $color-text-secondary;
   font-size: 28rpx;
+  font-weight: 500;
 }
 
 .login-tip-btn {
-  background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 10%) 100%);
+  background: $gradient-primary;
   color: $color-text;
   font-size: 26rpx;
-  padding: 16rpx 32rpx;
+  font-weight: 600;
+  padding: 18rpx 36rpx;
   border-radius: 32rpx;
+  box-shadow: 0 4rpx 12rpx rgba($color-primary, 0.25);
 }
 
-/* Loading */
+/* Loading - 优化动画 */
 .loading {
   display: flex;
   flex-direction: column;
@@ -1087,17 +1183,17 @@ export default {
   text {
     color: $color-text-muted;
     font-size: 26rpx;
-    margin-top: 16rpx;
+    margin-top: 20rpx;
   }
 }
 
 .loading-spinner {
-  width: 48rpx;
-  height: 48rpx;
-  border: 4rpx solid $color-bg-tertiary;
+  width: 52rpx;
+  height: 52rpx;
+  border: 4rpx solid rgba($color-bg-tertiary, 0.5);
   border-top-color: $color-primary;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -1115,15 +1211,20 @@ export default {
 }
 
 .error-icon {
-  font-size: 80rpx;
-  color: $color-warning;
-  margin-bottom: 24rpx;
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 28rpx;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='%23f5a623' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/%3E%3Cline x1='12' y1='9' x2='12' y2='13'/%3E%3Cline x1='12' y1='17' x2='12.01' y2='17'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.8;
 }
 
 .error-text {
   color: $color-text;
   font-size: 32rpx;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 12rpx;
 }
 
@@ -1134,11 +1235,17 @@ export default {
 }
 
 .error-btn {
-  background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 10%) 100%);
+  background: $gradient-primary;
   color: $color-text;
   font-size: 28rpx;
+  font-weight: 600;
   padding: 20rpx 48rpx;
   border-radius: 40rpx;
+  box-shadow: $shadow-primary;
+  
+  &:active {
+    transform: scale(0.96);
+  }
 }
 
 /* Empty State */
@@ -1150,15 +1257,20 @@ export default {
 }
 
 .empty-icon {
-  font-size: 80rpx;
-  color: $color-text-muted;
-  margin-bottom: 24rpx;
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 28rpx;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='%23888898' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.5;
 }
 
 .empty-text {
   color: $color-text;
   font-size: 32rpx;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 12rpx;
 }
 
@@ -1167,25 +1279,37 @@ export default {
   font-size: 26rpx;
 }
 
-/* Floating Search Button */
+/* Floating Search Button - 增强浮动效果 */
 .float-search {
   position: fixed;
-  right: 24rpx;
+  right: 28rpx;
   bottom: calc(180rpx + constant(safe-area-inset-bottom));
   bottom: calc(180rpx + env(safe-area-inset-bottom));
-  width: 96rpx;
-  height: 96rpx;
+  width: 100rpx;
+  height: 100rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 10%) 100%);
+  background: $gradient-primary;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8rpx 24rpx rgba($color-primary, 0.4);
+  box-shadow: $shadow-float, 0 0 40rpx rgba($color-primary, 0.2);
   z-index: 100;
+  transition: all $transition-normal;
+  
+  &:active {
+    transform: scale(0.9);
+    box-shadow: 0 6rpx 20rpx rgba($color-primary, 0.4);
+  }
 }
 
 .float-search-icon {
-  font-size: 40rpx;
+  width: 44rpx;
+  height: 44rpx;
+  background-image: $icon-search;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(0) invert(1);
 }
 
 /* Safe Area */

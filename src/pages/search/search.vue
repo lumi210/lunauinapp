@@ -2,7 +2,7 @@
   <view class="page">
     <view class="header">
       <view class="back" @click="goBack">
-        <text>&lt;</text>
+        <view class="back-icon"></view>
       </view>
       <text class="header-title">搜索</text>
     </view>
@@ -94,7 +94,7 @@
       </view>
 
       <view class="empty" v-if="!loading && searched && results.length === 0">
-        <text class="empty-icon">&#128269;</text>
+        <view class="empty-icon"></view>
         <text class="empty-text">没有找到相关内容</text>
         <text class="empty-tip">试试其他关键词</text>
       </view>
@@ -286,51 +286,82 @@ export default {
   padding: 24rpx;
   padding-top: calc(24rpx + constant(safe-area-inset-top));
   padding-top: calc(24rpx + env(safe-area-inset-top));
-  background: $color-bg-secondary;
+  background: rgba($color-bg-secondary, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1rpx solid $color-border;
 }
 
 .back {
-  width: 60rpx;
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all $transition-fast;
   
-  text {
-    color: $color-text;
-    font-size: 36rpx;
+  &:active {
+    background: rgba(255, 255, 255, 0.1);
   }
+}
+
+.back-icon {
+  width: 28rpx;
+  height: 28rpx;
+  background-image: $icon-back;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .header-title {
   color: $color-text;
   font-size: 36rpx;
-  font-weight: bold;
+  font-weight: 700;
   flex: 1;
+  margin-left: 8rpx;
 }
 
 .search-bar {
   display: flex;
   align-items: center;
-  padding: 16rpx 24rpx;
+  padding: 20rpx 24rpx;
   background: $color-bg-secondary;
   gap: 16rpx;
 }
 
 .search-input {
   flex: 1;
-  height: 72rpx;
-  padding: 0 24rpx;
+  height: 80rpx;
+  padding: 0 28rpx;
   background: $color-bg;
-  border-radius: 36rpx;
+  border-radius: 40rpx;
   color: $color-text;
   font-size: 28rpx;
+  border: 2rpx solid transparent;
+  transition: all $transition-fast;
+  
+  &:focus {
+    border-color: rgba($color-primary, 0.3);
+  }
 }
 
 .search-btn {
-  padding: 16rpx 32rpx;
-  background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 10%) 100%);
-  border-radius: 36rpx;
+  padding: 18rpx 36rpx;
+  background: $gradient-primary;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 16rpx rgba($color-primary, 0.3);
+  transition: all $transition-fast;
+  
+  &:active {
+    transform: scale(0.96);
+  }
   
   text {
     color: $color-text;
     font-size: 28rpx;
+    font-weight: 600;
   }
 }
 
@@ -340,7 +371,7 @@ export default {
 
 /* 搜索历史 */
 .history-section, .hot-section {
-  padding: 24rpx;
+  padding: 28rpx 24rpx;
   border-bottom: 1rpx solid $color-border;
 }
 
@@ -348,18 +379,25 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20rpx;
+  margin-bottom: 24rpx;
 }
 
 .section-title {
   color: $color-text;
-  font-size: 28rpx;
-  font-weight: bold;
+  font-size: 30rpx;
+  font-weight: 700;
 }
 
 .clear-btn {
   color: $color-text-muted;
   font-size: 24rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  transition: all $transition-fast;
+  
+  &:active {
+    background: rgba(255, 255, 255, 0.05);
+  }
 }
 
 .history-tags {
@@ -369,9 +407,16 @@ export default {
 }
 
 .history-tag {
-  padding: 12rpx 24rpx;
-  background: $color-bg-secondary;
-  border-radius: 24rpx;
+  padding: 14rpx 28rpx;
+  background: rgba($color-bg-secondary, 0.6);
+  border-radius: 28rpx;
+  border: 1rpx solid $color-border;
+  transition: all $transition-fast;
+  
+  &:active {
+    background: rgba($color-bg-secondary, 0.9);
+    transform: scale(0.96);
+  }
   
   text {
     color: $color-text-secondary;
@@ -383,24 +428,31 @@ export default {
 .hot-tags {
   display: flex;
   flex-direction: column;
-  gap: 8rpx;
+  gap: 4rpx;
 }
 
 .hot-tag {
   display: flex;
   align-items: center;
-  padding: 16rpx 0;
+  padding: 20rpx 16rpx;
+  border-radius: 12rpx;
+  transition: all $transition-fast;
   
   &:active {
-    background: $color-bg-secondary;
+    background: rgba($color-bg-secondary, 0.5);
   }
 }
 
 .hot-index {
   width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: $color-text-muted;
   font-size: 26rpx;
-  font-weight: bold;
+  font-weight: 700;
+  margin-right: 16rpx;
   
   &.top {
     color: $color-primary;
@@ -410,6 +462,7 @@ export default {
 .hot-text {
   color: $color-text;
   font-size: 28rpx;
+  font-weight: 500;
 }
 
 /* 搜索结果 */
@@ -418,7 +471,7 @@ export default {
 }
 
 .result-header {
-  padding: 16rpx 0;
+  padding: 20rpx 0;
 }
 
 .result-count {
@@ -430,14 +483,20 @@ export default {
   display: flex;
   padding: 24rpx 0;
   border-bottom: 1rpx solid $color-border;
+  transition: all $transition-fast;
+  
+  &:active {
+    background: rgba(255, 255, 255, 0.02);
+  }
 }
 
 .result-cover {
   flex-shrink: 0;
   width: 140rpx;
   height: 200rpx;
-  border-radius: 12rpx;
+  border-radius: 16rpx;
   background: $color-bg-secondary;
+  box-shadow: $shadow-sm;
 }
 
 .result-info {
@@ -452,9 +511,9 @@ export default {
 .result-title {
   color: $color-text;
   font-size: 30rpx;
-  font-weight: bold;
+  font-weight: 600;
   display: block;
-  margin-bottom: 8rpx;
+  margin-bottom: 10rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -464,7 +523,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 16rpx;
-  margin-bottom: 8rpx;
+  margin-bottom: 10rpx;
 }
 
 .result-year {
@@ -475,16 +534,17 @@ export default {
 .result-type {
   color: $color-secondary;
   font-size: 22rpx;
-  padding: 4rpx 12rpx;
-  background: rgba($color-secondary, 0.2);
-  border-radius: 8rpx;
+  font-weight: 500;
+  padding: 4rpx 14rpx;
+  background: rgba($color-secondary, 0.15);
+  border-radius: 10rpx;
 }
 
 .result-desc {
   color: $color-text-muted;
   font-size: 24rpx;
   display: block;
-  margin-bottom: 8rpx;
+  margin-bottom: 10rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -499,11 +559,13 @@ export default {
 .result-source {
   color: $color-secondary;
   font-size: 22rpx;
+  font-weight: 500;
 }
 
 .result-episodes {
   color: $color-warning;
   font-size: 22rpx;
+  font-weight: 500;
 }
 
 /* 加载状态 */
@@ -516,17 +578,17 @@ export default {
   text {
     color: $color-text-muted;
     font-size: 26rpx;
-    margin-top: 16rpx;
+    margin-top: 20rpx;
   }
 }
 
 .loading-spinner {
-  width: 48rpx;
-  height: 48rpx;
-  border: 4rpx solid $color-bg-tertiary;
+  width: 52rpx;
+  height: 52rpx;
+  border: 4rpx solid rgba($color-bg-tertiary, 0.5);
   border-top-color: $color-primary;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -537,7 +599,7 @@ export default {
 
 .load-more, .no-more {
   text-align: center;
-  padding: 32rpx;
+  padding: 36rpx;
   
   text {
     color: $color-text-muted;
@@ -554,15 +616,21 @@ export default {
 }
 
 .empty-icon {
-  font-size: 80rpx;
-  color: $color-text-muted;
-  margin-bottom: 24rpx;
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 28rpx;
+  background-image: $icon-search;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.4;
+  filter: brightness(0) invert(0.5);
 }
 
 .empty-text {
   color: $color-text;
   font-size: 32rpx;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 12rpx;
 }
 
@@ -582,9 +650,10 @@ export default {
   .result-item {
     width: calc(50% - 12rpx);
     border: none;
-    background: $color-bg-secondary;
-    border-radius: 12rpx;
-    padding: 16rpx;
+    background: rgba($color-bg-secondary, 0.5);
+    border-radius: 16rpx;
+    padding: 20rpx;
+    border: 1rpx solid $color-border;
   }
 }
 </style>
