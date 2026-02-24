@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { buildUrl } from "../../utils/request"
+import { buildUrl, getApiUrl } from "../../utils/config"
 export default {
   data() {
     return {
@@ -81,7 +81,7 @@ export default {
     
     getPoster(item) {
       if (!item.poster && !item.cover && !item.pic) {
-        return 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiB2aWV3Qm94PSIwIDAgMjAwIDI4MCI+PHJlY3QgZmlsbD0iIzFhMWEyZSIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyODAiLz48dGV4dCB4PSIxMDAiIHk9IjE0MCIgZmlsbD0iIzg4OCIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+5peg5rSE5Zu+54mHPC90ZXh0Pjwvc3ZnPg=='
+        return 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiB2aWV3Qm94PSIwIDAgMjAwIDI4MCI+PHJlY3QgZmlsbD0iIzBhMGEwZiIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyODAiLz48dGV4dCB4PSIxMDAiIHk9IjE0MCIgZmlsbD0iIzcxNzE3QSIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+5peg5rSE5Zu+54mHPC90ZXh0Pjwvc3ZnPg=='
       }
       const url = item.poster || item.cover || item.pic
       return this.proxyImage(url)
@@ -90,28 +90,22 @@ export default {
     proxyImage(url) {
       if (!url || url.startsWith('data:')) return url
       
-      // #ifdef H5
-      // H5 端使用代理避免跨域
+      // 使用图片代理（H5 避免跨域，APP 端避免防盗链）
       if (url.includes('doubanio.com')) {
-        return buildUrl('/api/image-proxy?url=' + encodeURIComponent(url))
+        return getApiUrl('/api/image-proxy?url=' + encodeURIComponent(url))
       }
       if (url.startsWith('http://') || url.startsWith('https://')) {
         if (!url.includes('monkeycode-ai.online') && !url.includes('localhost')) {
-          return buildUrl('/api/image-proxy?url=' + encodeURIComponent(url))
+          return getApiUrl('/api/image-proxy?url=' + encodeURIComponent(url))
         }
       }
-      // #endif
-      
-      // #ifndef H5
-      // APP 端直接使用原始 URL
-      // #endif
       
       return url
     },
     
     onImageError(e, item) {
       console.log('image load error:', item.title)
-      item.poster = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiB2aWV3Qm94PSIwIDAgMjAwIDI4MCI+PHJlY3QgZmlsbD0iIzFhMWEyZSIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyODAiLz48dGV4dCB4PSIxMDAiIHk9IjE0MCIgZmlsbD0iIzg4OCIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+5peg5rSE5Zu+54mHPC90ZXh0Pjwvc3ZnPg=='
+      item.poster = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiB2aWV3Qm94PSIwIDAgMjAwIDI4MCI+PHJlY3QgZmlsbD0iIzBhMGEwZiIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyODAiLz48dGV4dCB4PSIxMDAiIHk9IjE0MCIgZmlsbD0iIzcxNzE3QSIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+5peg5rSE5Zu+54mHPC90ZXh0Pjwvc3ZnPg=='
       this.$forceUpdate()
     },
     
